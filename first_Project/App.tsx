@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import Task from './components/task';
+
 import {KeyboardAvoidingView, StyleSheet, Text, View} from 'react-native';
 import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
@@ -40,6 +42,22 @@ export default function App() {
         <TouchableOpacity style={styles.removealltext}>
           <Text style={styles.removealltext}>Remove All</Text>
         </TouchableOpacity>
+
+        <View>
+          <View style={styles.items}>
+            {taskItems.map((item,index)=>{
+              return(
+<TouchableOpacity key={index} style={styles.todocard}>
+  <TouchableOpacity key={index} onPress={()=>completeTask(index)}>
+    <Image source={require('./images/deleteicon.png')}
+    style = {{width:25,height:25}}/>
+  </TouchableOpacity>
+  <Task text={item}/>
+</TouchableOpacity>
+              )
+            })}
+          </View>
+        </View>
       </ScrollView>
 
       <KeyboardAvoidingView style={StyleSheet.writeTaskWrapper}>
@@ -66,8 +84,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     /* alignItems: 'center', */
   },
-  removealltext:{
-    fontSize: 17,
 
-  }
+  removeall: {
+    flex: 0,
+    justifyContent: 'center',
+    width: '100%',
+    flexDirection: 'row',
+    margin: 10,
+  },
+
+  removealltext: {
+    fontSize: 17,
+    fontWeight: '700',
+    backgroundColor:"red",
+    color:"white",
+    width:110,
+    textAlign:'center',
+    padding:5,
+    borderRadius:10,
+    marginLeft:140,
+    marginTop:10,
+  },
 });
